@@ -1,18 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.android.politicalpreparedness.MainActivity">
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <!-- TODO: Add image for home screen logo. -->
+    <ImageView
+      android:id="@+id/homeImgView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@null"
+      android:src="@drawable/ballot_logo"
+      app:layout_constraintBottom_toTopOf="@id/upcomingButton"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO: Add Button to navigate to upcoming elections. -->
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/upcomingButton"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/wide_btn_margin_start_end"
+      android:layout_marginTop="@dimen/wide_btn_margin_top_bottom"
+      android:layout_marginEnd="@dimen/wide_btn_margin_start_end"
+      android:layout_marginBottom="@dimen/wide_btn_margin_top_bottom"
+      android:backgroundTint="@color/colorPrimary"
+      android:text="@string/upcoming_elections"
+      android:textAllCaps="true"
+      android:textColor="@color/white"
+      android:textSize="@dimen/wide_btn_txt_size"
+      app:layout_constraintBottom_toTopOf="@id/representativeButton"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- TODO: Add Button to navigate to representatives. -->
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/representativeButton"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/wide_btn_margin_start_end"
+      android:layout_marginTop="@dimen/wide_btn_margin_top_bottom"
+      android:layout_marginEnd="@dimen/wide_btn_margin_start_end"
+      android:layout_marginBottom="@dimen/wide_btn_margin_top_bottom"
+      android:backgroundTint="@color/colorPrimary"
+      android:text="@string/find_my_representatives"
+      android:textAllCaps="true"
+      android:textColor="@color/white"
+      android:textSize="@dimen/wide_btn_txt_size"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
