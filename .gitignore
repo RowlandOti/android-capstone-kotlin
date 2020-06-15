@@ -237,3 +237,4 @@ fabric.properties
 # End of https://www.gitignore.io/api/java,kotlin,android,androidstudio
 /app/app.iml
 /gradle/wrapper/gradle-wrapper.jar
+/.idea/jarRepositories.xml

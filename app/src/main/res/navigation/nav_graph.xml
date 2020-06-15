@@ -13,10 +13,10 @@
         tools:layout="@layout/fragment_launch"/>
 
     <fragment
-        android:id="@+id/representativeFragment"
-        android:name="com.example.android.politicalpreparedness.representative.DetailFragment"
-        android:label="fragment_representative"
-        tools:layout="@layout/fragment_representative"></fragment>
+      android:id="@+id/representativeFragment"
+      android:name="com.example.android.politicalpreparedness.representative.DetailFragment"
+      android:label="fragment_representative"
+      tools:layout="@layout/fragment_representative" />
     <fragment
         android:id="@+id/voterInfoFragment"
         android:name="com.example.android.politicalpreparedness.election.VoterInfoFragment"

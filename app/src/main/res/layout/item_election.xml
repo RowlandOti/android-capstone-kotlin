@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="election"
+      type="com.example.android.politicalpreparedness.network.models.Election" />
+  </data>
+
+  <com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    app:cardCornerRadius="2dp">
+
+    <TextView
+      android:id="@+id/election_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_margin="16dp"
+      android:text="@{election.name}"
+      android:textAppearance="?attr/textAppearanceBody2"
+      tools:text="Austin, TX" />
+
+  </com.google.android.material.card.MaterialCardView>
+</layout>

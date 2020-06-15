@@ -1,21 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <data>
-    <variable
-      name="viewmodel"
-      type="com.example.android.politicalpreparedness.election.ElectionsViewModel" />
-  </data>
-
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-    <!-- TODO: Add Upcoming Election Recycler and Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="16dp">
 
-    <!-- TODO: Add Saved Election Recycler and Header -->
+      <!-- TODO: Add Upcoming Election Recycler and Header -->
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUpcomingElection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/rvSavedElection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="4" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+      <!-- TODO: Add Saved Election Recycler and Header -->
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSavedElection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvUpcomingElection"
+        app:spanCount="4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.core.widget.NestedScrollView>
 </layout>

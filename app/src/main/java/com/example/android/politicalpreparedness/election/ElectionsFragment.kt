@@ -5,32 +5,57 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.example.android.politicalpreparedness.PoliticalApp
+import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 
-class ElectionsFragment: Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+class ElectionsFragment : Fragment() {
 
-        //TODO: Add ViewModel values and create ViewModel
-        val electionsViewModel : ElectionsViewModel by viewModels()
+    private lateinit var binding: FragmentElectionBinding
+    private lateinit var upcomingElectionListAdapter: ElectionListAdapter
+    private lateinit var savedElectionListAdapter: ElectionListAdapter
+    private lateinit var viewModel: ElectionsViewModel
 
-        //TODO: Add binding values
-        val binding = FragmentElectionBinding.inflate(inflater)
-        binding.lifecycleOwner = this
-        binding.viewmodel = electionsViewModel
-
-        //TODO: Link elections to voter info
-
-        //TODO: Initiate recycler adapters
-
-        //TODO: Populate recycler adapters
-
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentElectionBinding.inflate(inflater)
         return binding.root
     }
 
-    //TODO: Refresh adapters when fragment loads
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val viewModelFactory =
+                ElectionsViewModelFactory(ElectionRepository(PoliticalApp.INSTANCE.database))
+        viewModel = viewModelFactory.create(ElectionsViewModel::class.java)
 
+        //TODO: Refresh adapters when fragment loads
+        viewModel.fetchUpcomingElections()
+        viewModel.loadSavedElections()
+
+
+        //TODO: Link elections to voter info
+        upcomingElectionListAdapter = ElectionListAdapter(ElectionListAdapter.ElectionListener {
+
+        })
+
+        savedElectionListAdapter = ElectionListAdapter(ElectionListAdapter.ElectionListener {
+
+        })
+
+        binding.rvUpcomingElection.adapter = upcomingElectionListAdapter
+        binding.rvSavedElection.adapter = savedElectionListAdapter
+
+        viewModel.getUpcomingElections().observe(viewLifecycleOwner, Observer {
+            upcomingElectionListAdapter.submitList(it)
+        })
+
+        viewModel.getSavedElections().observe(viewLifecycleOwner, Observer {
+            upcomingElectionListAdapter.submitList(it)
+        })
+    }
 }
