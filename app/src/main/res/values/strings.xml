@@ -4,6 +4,10 @@
   <string name="upcoming_elections">Upcoming Elections</string>
   <string name="find_my_representatives">Find My Representatives</string>
 
+  <string name="permissions_request">Please grant us  permissions</string>
+  <string name="permissions_request_settings">Go to settings to manually grant us denied permissions</string>
+  <string name="location_required_error">We could not retrieve your location</string>
+
   <!-- TODO: Add necessary string values -->
 
 </resources>
