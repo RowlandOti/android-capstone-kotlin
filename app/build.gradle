@@ -60,8 +60,10 @@ dependencies {
     // Core with Ktx
     implementation "androidx.core:core-ktx:$version_core"
 
-    // RX Perms
+    // RX Dependencies
     implementation "com.github.tbruyelle:rxpermissions:$version_rxperms"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
