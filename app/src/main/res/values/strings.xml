@@ -7,6 +7,13 @@
   <string name="permissions_request">Please grant us  permissions</string>
   <string name="permissions_request_settings">Go to settings to manually grant us denied permissions</string>
   <string name="location_required_error">We could not retrieve your location</string>
+  <string name="representative_search_form">Representative Search Form</string>
+  <string name="use_my_location">Use my Location</string>
+  <string name="hint_city">City</string>
+  <string name="hint_address_line_2">Address Line 2</string>
+  <string name="hint_address_line_1">Address Line 1</string>
+  <string name="hint_zip">Zip</string>
+  <string name="my_representative">My Representative</string>
 
   <!-- TODO: Add necessary string values -->
 

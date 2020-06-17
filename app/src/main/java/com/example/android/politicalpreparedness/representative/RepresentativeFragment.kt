@@ -18,8 +18,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
@@ -27,42 +31,71 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
+import kotlinx.coroutines.launch
 import java.util.*
 
+
 // Concepts and code borrowed from my own LocationReminder prject at: https://github.com/RowlandOti/LocationReminder
-class DetailFragment : Fragment() {
+class RepresentativeFragment : Fragment() {
 
     companion object {
-        val TAG = DetailFragment::class.java.simpleName
+        val TAG = RepresentativeFragment::class.java.simpleName
         private const val REQUEST_CODE_BACKGROUND = 102929
         private const val REQUEST_TURN_DEVICE_LOCATION_ON = 32435
     }
 
+    private lateinit var binding: FragmentRepresentativeBinding
+    private lateinit var representativeListAdapter: RepresentativeListAdapter
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
-
-    //TODO: Declare ViewModel
+    private lateinit var viewModel: RepresentativeViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
-        //TODO: Establish bindings
-
-        //TODO: Define and assign Representative adapter
-
-        //TODO: Populate Representative adapter
-
-        //TODO: Establish button listeners for field and location search
-
+        binding = FragmentRepresentativeBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val viewModelFactory = RepresentativeViewModelFactory()
+        viewModel = viewModelFactory.create(RepresentativeViewModel::class.java)
+
+        binding.lifecycleOwner = this
+
         fusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        representativeListAdapter =
+                RepresentativeListAdapter(RepresentativeListAdapter.RepresentativeListener {
+
+                })
+
+        binding.representativeRecyclerview.adapter = representativeListAdapter
+
+        viewModel.getRepresentatives().observe(viewLifecycleOwner, Observer {
+            representativeListAdapter.submitList(it)
+        })
+
+        viewModel.getAddress().observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch {
+                viewModel.fetchRepresentatives(it.zip)
+            }
+        })
+
+        binding.buttonSearch.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.fetchRepresentatives(binding.zip.text.toString())
+            }
+
+        }
+
+        binding.buttonLocation.setOnClickListener {
+            checkLocationPermissions()
+        }
     }
+
 
     override fun onRequestPermissionsResult(
             requestCode: Int,
@@ -120,6 +153,7 @@ class DetailFragment : Fragment() {
                     val location = task.result
                     location?.let {
                         val address = geoCodeLocation(it)
+                        viewModel.setAddress(address)
                     }
                 } else {
                     Log.e(TAG, "Exception: %s", task.exception)

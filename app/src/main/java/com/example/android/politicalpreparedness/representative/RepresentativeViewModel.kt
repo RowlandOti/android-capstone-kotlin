@@ -1,12 +1,45 @@
 package com.example.android.politicalpreparedness.representative
 
+import android.location.Geocoder
+import android.location.Location
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.politicalpreparedness.network.CivicsApi
+import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.representative.model.Representative
+import java.util.*
 
-class RepresentativeViewModel: ViewModel() {
+class RepresentativeViewModel : ViewModel() {
 
-    //TODO: Establish live data for representatives and address
+    private val representatives = MutableLiveData<List<Representative>>()
+    private val address = MutableLiveData<Address>()
 
-    //TODO: Create function to fetch representatives from API from a provided address
+    fun getRepresentatives(): LiveData<List<Representative>> {
+        return representatives
+    }
+
+    fun getAddress(): LiveData<Address> {
+        return address
+    }
+
+    fun setAddress(address: Address) {
+        this.address.postValue(address)
+    }
+
+    suspend fun fetchRepresentatives(address: String) {
+        val result = CivicsApi.retrofitService.getRepresentatives(address)
+        if (result.isSuccessful) {
+            result.body()?.let {
+                val offices = it.offices
+                val officials = it.officials
+
+                representatives.value =
+                        offices.flatMap { office -> office.getRepresentatives(officials) }
+            }
+        }
+    }
 
     /**
      *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
@@ -20,6 +53,9 @@ class RepresentativeViewModel: ViewModel() {
      */
 
     //TODO: Create function get address from geo location
+/*    fun getAddress(location: Location): Address {
+
+    }*/
 
     //TODO: Create function to get address from individual fields
 
