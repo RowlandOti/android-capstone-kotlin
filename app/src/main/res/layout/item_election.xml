@@ -4,7 +4,6 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
-
     <variable
       name="election"
       type="com.example.android.politicalpreparedness.network.models.Election" />
@@ -16,15 +15,40 @@
     android:layout_margin="2dp"
     app:cardCornerRadius="2dp">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/cnt_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="3dp"
+      android:layout_marginEnd="3dp">
+
     <TextView
+      android:text="@{election.name}"
       android:id="@+id/election_name"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
       android:layout_margin="16dp"
-      android:text="@{election.name}"
-      android:textAppearance="?attr/textAppearanceBody2"
-      tools:text="Austin, TX" />
+      android:textSize="16sp"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toTopOf="@id/election_day"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="VIP Test Election" />
+
+    <TextView
+      android:text="@{election.electionDay.toString()}"
+      android:id="@+id/election_day"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:textSize="14sp"
+      android:textStyle="normal"
+      app:layout_constraintTop_toBottomOf="@id/election_name"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="Tue June 02 00:00:)) EDT 2020" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
   </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -10,9 +10,9 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.ItemRepresentativeBinding
-import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.network.models.Channel
 import com.example.android.politicalpreparedness.representative.model.Representative
 
@@ -44,7 +44,14 @@ class RepresentativeListAdapter(private val clickListener: RepresentativeListene
 
         fun bind(item: Representative) {
             binding.representative = item
-            binding.representativePhoto.setImageResource(R.drawable.ic_profile)
+
+            if (!item.official.photoUrl.isNullOrEmpty()) {
+                Glide.with(binding.representativePhoto.context)
+                        .load(item.official.photoUrl)
+                        .placeholder(R.drawable.ic_profile)
+                        .error(R.drawable.ic_profile)
+                        .into(binding.representativePhoto)
+            }
 
             item.official.channels?.let {
                 showSocialLinks(it)
