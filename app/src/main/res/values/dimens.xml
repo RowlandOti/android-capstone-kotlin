@@ -5,6 +5,4 @@
   <dimen name="wide_btn_margin_top_bottom">5dp</dimen>
   <dimen name="wide_btn_txt_size">16sp</dimen>
 
-  <!-- TODO: Add necessary dimension values -->s
-
 </resources>

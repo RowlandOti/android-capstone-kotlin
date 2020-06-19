@@ -80,6 +80,12 @@ class RepresentativeFragment : Fragment() {
 
         viewModel.getAddress().observe(viewLifecycleOwner, Observer {
             lifecycleScope.launch {
+                binding.addressLine1.setText(it.line1)
+                binding.addressLine2.setText(it.line2)
+                binding.city.setText(it.city)
+                binding.state.prompt = it.state
+                binding.zip.setText(it.zip)
+
                 viewModel.fetchRepresentatives(it.zip)
             }
         })
@@ -88,7 +94,6 @@ class RepresentativeFragment : Fragment() {
             lifecycleScope.launch {
                 viewModel.fetchRepresentatives(binding.zip.text.toString())
             }
-
         }
 
         binding.buttonLocation.setOnClickListener {

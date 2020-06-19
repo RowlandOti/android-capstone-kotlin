@@ -1,15 +1,11 @@
 package com.example.android.politicalpreparedness.representative
 
-import android.location.Geocoder
-import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Address
-import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.representative.model.Representative
-import java.util.*
 
 class RepresentativeViewModel : ViewModel() {
 
@@ -26,6 +22,16 @@ class RepresentativeViewModel : ViewModel() {
 
     fun setAddress(address: Address) {
         this.address.postValue(address)
+    }
+
+    fun setAddress(
+            addressLine: String,
+            addressLine2: String,
+            city: String,
+            state: String,
+            zip: String
+    ) {
+        this.address.postValue(Address(addressLine, addressLine2, city, state, zip))
     }
 
     suspend fun fetchRepresentatives(address: String) {
