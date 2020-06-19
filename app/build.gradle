@@ -7,12 +7,12 @@ apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 29
-    dataBinding {
-        enabled = true
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
-    viewBinding {
-        enabled = true
-    }
+
     defaultConfig {
         applicationId 'com.example.android.politicalpreparedness'
         minSdkVersion 26
@@ -80,6 +80,7 @@ dependencies {
 
     //Room
     implementation "androidx.room:room-runtime:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
 
     // Location
