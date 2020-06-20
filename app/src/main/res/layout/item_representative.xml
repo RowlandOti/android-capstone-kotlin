@@ -27,7 +27,6 @@
         android:contentDescription="@null"
         android:src="@drawable/ic_profile"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cnt_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,10 +34,10 @@
         android:id="@+id/cnt_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="6dp"
         android:layout_marginEnd="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cnt_icons"
+
         app:layout_constraintStart_toEndOf="@id/representative_photo"
         app:layout_constraintTop_toTopOf="parent">
 

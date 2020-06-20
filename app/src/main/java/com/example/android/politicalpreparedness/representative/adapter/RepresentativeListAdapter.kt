@@ -50,6 +50,7 @@ class RepresentativeListAdapter(private val clickListener: RepresentativeListene
             if (!item.official.photoUrl.isNullOrEmpty()) {
                 Glide.with(binding.representativePhoto.context)
                         .load(item.official.photoUrl)
+                        .circleCrop()
                         .placeholder(R.drawable.ic_profile)
                         .error(R.drawable.ic_profile)
                         .into(binding.representativePhoto)
