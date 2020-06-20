@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.representative.adapter
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -99,9 +101,17 @@ class RepresentativeListAdapter(private val clickListener: RepresentativeListene
         }
 
         private fun setIntent(url: String) {
-            val uri = Uri.parse(url)
-            val intent = Intent(ACTION_VIEW, uri)
-            itemView.context.startActivity(intent)
+            try {
+                val uri = Uri.parse(url)
+                val intent = Intent(ACTION_VIEW, uri)
+                itemView.context.startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                        itemView.context,
+                        "No app found that could open the link. Please install browser",
+                        Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

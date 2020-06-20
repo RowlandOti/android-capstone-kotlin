@@ -2,6 +2,11 @@ package com.example.android.politicalpreparedness.database
 
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.http.Query
 
 /**
  * Created by rowlandoti on 11/06/2020
@@ -23,5 +28,16 @@ class ElectionRepository(
         return if (result.isSuccessful) {
             result.body()?.elections ?: emptyList()
         } else emptyList()
+    }
+
+    suspend fun fetchVoterInfo(address: String, electionId: Int): VoterInfoResponse? {
+        val result = CivicsApi.retrofitService.getVoterInfo(address,electionId)
+        return if (result.isSuccessful) {
+            result.body()
+        } else null
+    }
+
+    fun saveElection(election :Election) {
+        electionDao.insert(election)
     }
 }

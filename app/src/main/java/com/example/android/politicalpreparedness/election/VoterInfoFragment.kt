@@ -1,30 +1,64 @@
 package com.example.android.politicalpreparedness.election
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.example.android.politicalpreparedness.PoliticalApp
+import com.example.android.politicalpreparedness.database.ElectionRepository
+import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
+import com.example.android.politicalpreparedness.network.models.Division
 
 class VoterInfoFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    private lateinit var binding: FragmentVoterInfoBinding
+    private lateinit var viewModel: VoterInfoViewModel
 
-        //TODO: Add ViewModel values and create ViewModel
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentVoterInfoBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        return binding.root
+    }
 
-        //TODO: Add binding values
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val viewModelFactory =
+                VoterInfoViewModelFactory(ElectionRepository(PoliticalApp.INSTANCE.database))
+        viewModel = viewModelFactory.create(VoterInfoViewModel::class.java)
+
+        binding.viewModel = viewModel
+
+        arguments?.let {
+            val electionId = VoterInfoFragmentArgs.fromBundle(it).argElectionId
+            val division= VoterInfoFragmentArgs.fromBundle(it).argDivision
+
+            viewModel.setDataFromArgs(electionId, division)
+        }
+
+        viewModel.getVoterInfo().observe(viewLifecycleOwner, Observer {
+
+        })
 
         //TODO: Populate voter info -- hide views without provided data.
         /**
         Hint: You will need to ensure proper data is provided from previous fragment.
-        */
+         */
 
+        viewModel.getLoadVotingLocation().observe(viewLifecycleOwner, Observer {
 
-        //TODO: Handle loading of URLs
+        })
+
+        viewModel.getLoadBallotInformation().observe(viewLifecycleOwner, Observer {
+
+        })
 
         //TODO: Handle save button UI state
         //TODO: cont'd Handle save button clicks
-
     }
 
     //TODO: Create method to load URL intents

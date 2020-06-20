@@ -6,8 +6,8 @@
 
   <data>
     <variable
-      name="viewModel"
-      type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
+      name="address"
+      type="com.example.android.politicalpreparedness.network.models.Address" />
   </data>
 
   <androidx.constraintlayout.motion.widget.MotionLayout
@@ -43,6 +43,7 @@
         android:autofillHints=""
         android:hint="@string/hint_address_line_1"
         android:inputType="textPostalAddress"
+        android:text="@{address.line1}"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_title" />
 
@@ -53,6 +54,7 @@
         android:autofillHints=""
         android:hint="@string/hint_address_line_2"
         android:inputType="textPostalAddress"
+        android:text="@{address.line2}"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
@@ -63,6 +65,7 @@
         android:autofillHints=""
         android:hint="@string/hint_city"
         android:inputType="textPostalAddress"
+        android:text="@{address.city}"
         app:layout_constraintEnd_toStartOf="@id/state"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/address_line_2" />
@@ -75,6 +78,7 @@
         android:drawSelectorOnTop="true"
         android:entries="@array/states"
         android:inputType="textPostalAddress"
+        stateValue="@{address.state}"
         app:layout_constraintBottom_toBottomOf="@id/city"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/city"
@@ -88,6 +92,7 @@
         android:hint="@string/hint_zip"
         android:inputType="number"
         android:maxLength="5"
+        android:text="@{address.zip}"
         app:layout_constraintEnd_toEndOf="@id/city"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/city" />
@@ -102,7 +107,6 @@
         android:layout_marginEnd="@dimen/wide_btn_margin_start_end"
         android:layout_marginBottom="@dimen/wide_btn_margin_top_bottom"
         android:backgroundTint="@color/colorPrimary"
-        android:onClick="@{()->viewModel.setAddress(addressLine1.getText().toString(),addressLine2.getText().toString(), city.getText().toString(), state.getSelectedItem().toString(), zip.getText().toString())}"
         android:text="@string/find_my_representatives"
         android:textAllCaps="true"
         android:textColor="@color/white"

@@ -40,8 +40,8 @@ class RepresentativeFragment : Fragment() {
 
     companion object {
         val TAG = RepresentativeFragment::class.java.simpleName
-        private const val REQUEST_CODE_BACKGROUND = 102929
-        private const val REQUEST_TURN_DEVICE_LOCATION_ON = 32435
+        private const val REQUEST_CODE_BACKGROUND = 102
+        private const val REQUEST_TURN_DEVICE_LOCATION_ON = 324
     }
 
     private lateinit var binding: FragmentRepresentativeBinding
@@ -79,24 +79,27 @@ class RepresentativeFragment : Fragment() {
         })
 
         viewModel.getAddress().observe(viewLifecycleOwner, Observer {
+            binding.address = it
             lifecycleScope.launch {
-                binding.addressLine1.setText(it.line1)
-                binding.addressLine2.setText(it.line2)
-                binding.city.setText(it.city)
-                binding.state.prompt = it.state
-                binding.zip.setText(it.zip)
-
-                viewModel.fetchRepresentatives(it.zip)
+                viewModel.fetchRepresentatives(it.toFormattedString())
             }
         })
 
         binding.buttonSearch.setOnClickListener {
-            lifecycleScope.launch {
-                viewModel.fetchRepresentatives(binding.zip.text.toString())
-            }
+            hideKeyboard()
+            val address = Address(
+                    binding.addressLine1.text.toString(),
+                    binding.addressLine2.text.toString(),
+                    binding.city.text.toString(),
+                    binding.state.selectedItem.toString(),
+                    binding.zip.text.toString()
+            )
+            //binding.address = address
+            viewModel.setAddress(address)
         }
 
         binding.buttonLocation.setOnClickListener {
+            hideKeyboard()
             checkLocationPermissions()
         }
     }

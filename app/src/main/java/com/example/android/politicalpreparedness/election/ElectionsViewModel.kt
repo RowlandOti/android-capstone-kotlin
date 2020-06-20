@@ -3,13 +3,14 @@ package com.example.android.politicalpreparedness.election
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.network.models.Election
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ElectionsViewModel(val repository: ElectionRepository) : ViewModel() {
+class ElectionsViewModel(private val repository: ElectionRepository) : ViewModel() {
 
     private val upcomingElections = MutableLiveData<List<Election>>()
     private val savedElections = MutableLiveData<List<Election>>()
@@ -23,7 +24,7 @@ class ElectionsViewModel(val repository: ElectionRepository) : ViewModel() {
     }
 
     fun fetchUpcomingElections() {
-        launch {
+        viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val elections = repository.fetchUpcomingElections()
                 upcomingElections.postValue(elections)
@@ -32,7 +33,7 @@ class ElectionsViewModel(val repository: ElectionRepository) : ViewModel() {
     }
 
     fun loadSavedElections() {
-        launch {
+        viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val elections = repository.getSavedElections()
                 savedElections.postValue(elections)

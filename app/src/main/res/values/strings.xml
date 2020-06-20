@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Political Preparedness</string>
-  <string name="upcoming_elections">Upcoming Elections</string>
+  <string name="app_name">Political Preparedness</string>
   <string name="find_my_representatives">Find My Representatives</string>
-
   <string name="permissions_request">Please grant us  permissions</string>
   <string name="permissions_request_settings">Go to settings to manually grant us denied permissions</string>
   <string name="location_required_error">We could not retrieve your location</string>
@@ -15,5 +13,11 @@
   <string name="hint_zip">Zip</string>
   <string name="my_representative">My Representative</string>
   <string name="empty_try_again_later">No items could be found at this time. Please try again later.</string>
+  <string name="follow_election">Follow Election</string>
+  <string name="election_information">Election Information</string>
+  <string name="voting_locations">Voting Locations</string>
+  <string name="ballot_information">Ballot Information</string>
+  <string name="upcoming_elections">Upcoming Elections</string>
+  <string name="state_correspondence">State Correspondence</string>
 
 </resources>

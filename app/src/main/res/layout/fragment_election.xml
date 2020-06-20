@@ -13,7 +13,18 @@
       android:layout_height="match_parent"
       android:layout_margin="16dp">
 
-      <!-- TODO: Add Upcoming Election Recycler and Header -->
+      <TextView
+        android:id="@+id/upcoming_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upcoming_elections"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUpcomingElection"
         android:layout_width="match_parent"
@@ -25,10 +36,21 @@
         app:layout_constraintBottom_toTopOf="@id/rvSavedElection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/upcoming_header"
         app:spanCount="4" />
 
-      <!-- TODO: Add Saved Election Recycler and Header -->
+
+      <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/saved_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upcoming_elections"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvUpcomingElection" />
 
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSavedElection"
@@ -41,8 +63,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvUpcomingElection"
-        app:spanCount="4" />
+        app:layout_constraintTop_toBottomOf="@+id/saved_header"
+        app:spanCount="10" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>

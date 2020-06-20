@@ -3,9 +3,11 @@ package com.example.android.politicalpreparedness.representative
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.model.Representative
+import kotlinx.coroutines.launch
 
 class RepresentativeViewModel : ViewModel() {
 
@@ -24,25 +26,17 @@ class RepresentativeViewModel : ViewModel() {
         this.address.postValue(address)
     }
 
-    fun setAddress(
-            addressLine: String,
-            addressLine2: String,
-            city: String,
-            state: String,
-            zip: String
-    ) {
-        this.address.postValue(Address(addressLine, addressLine2, city, state, zip))
-    }
+    fun fetchRepresentatives(address: String) {
+        viewModelScope.launch {
+            val result = CivicsApi.retrofitService.getRepresentatives(address)
+            if (result.isSuccessful) {
+                result.body()?.let {
+                    val offices = it.offices
+                    val officials = it.officials
 
-    suspend fun fetchRepresentatives(address: String) {
-        val result = CivicsApi.retrofitService.getRepresentatives(address)
-        if (result.isSuccessful) {
-            result.body()?.let {
-                val offices = it.offices
-                val officials = it.officials
-
-                representatives.value =
-                        offices.flatMap { office -> office.getRepresentatives(officials) }
+                    representatives.value =
+                            offices.flatMap { office -> office.getRepresentatives(officials) }
+                }
             }
         }
     }

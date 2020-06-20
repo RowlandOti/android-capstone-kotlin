@@ -51,7 +51,7 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
         }
     }
 
-    class ElectionListener(val clickListener: (name: String) -> Unit) {
-        fun onClick(election: Election) = clickListener(election.name)
+    class ElectionListener(val clickListener: (election: Election) -> Unit) {
+        fun onClick(election: Election) = clickListener(election)
     }
 }
