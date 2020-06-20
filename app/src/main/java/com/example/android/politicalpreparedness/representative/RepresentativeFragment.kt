@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.android.politicalpreparedness.R
@@ -47,7 +48,8 @@ class RepresentativeFragment : Fragment() {
     private lateinit var binding: FragmentRepresentativeBinding
     private lateinit var representativeListAdapter: RepresentativeListAdapter
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
-    private lateinit var viewModel: RepresentativeViewModel
+    //private lateinit var viewModel: RepresentativeViewModel
+    private val viewModel by viewModels<RepresentativeViewModel>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -59,9 +61,6 @@ class RepresentativeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val viewModelFactory = RepresentativeViewModelFactory()
-        viewModel = viewModelFactory.create(RepresentativeViewModel::class.java)
-
         binding.lifecycleOwner = this
 
         fusedLocationProviderClient =
