@@ -6,14 +6,12 @@
     motion:constraintSetEnd="@+id/end"
     motion:constraintSetStart="@+id/start"
     motion:duration="1000">
-    <OnSwipe
-      motion:dragDirection="dragUp"
-      motion:touchAnchorId="@+id/representative_recyclerview"
-      motion:touchAnchorSide="right" />
+    <OnSwipe motion:touchAnchorId="@+id/representative_recyclerview" />
   </Transition>
 
   <ConstraintSet android:id="@+id/start">
     <Constraint
+      android:visibility="visible"
       android:id="@+id/cntForm"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -24,10 +22,11 @@
 
   <ConstraintSet android:id="@+id/end">
     <Constraint
+      android:visibility="gone"
       android:id="@+id/cntForm"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      motion:layout_constraintBottom_toBottomOf="parent"
+      motion:layout_constraintStart_toStartOf="parent"
       motion:layout_constraintEnd_toEndOf="parent"
       motion:layout_constraintTop_toTopOf="parent" />
   </ConstraintSet>
