@@ -4,5 +4,8 @@
   <dimen name="wide_btn_margin_start_end">15dp</dimen>
   <dimen name="wide_btn_margin_top_bottom">5dp</dimen>
   <dimen name="wide_btn_txt_size">16sp</dimen>
+  <dimen name="card_election_margin">4dp</dimen>
+  <dimen name="card_radius">2dp</dimen>
+  <dimen name="card_padding">2dp</dimen>
 
 </resources>

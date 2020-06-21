@@ -12,8 +12,9 @@
   <com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    app:cardCornerRadius="2dp">
+    android:layout_margin="@dimen/card_election_margin"
+    android:padding="@dimen/card_padding"
+    app:cardCornerRadius="@dimen/card_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/cnt_text"
@@ -33,7 +34,14 @@
       app:layout_constraintBottom_toTopOf="@id/election_day"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:text="VIP Test Election" />
+      tools:text="VIP Test Election"
+      android:ellipsize="marquee"
+      android:gravity="center"
+      android:marqueeRepeatLimit="marquee_forever"
+      android:scrollHorizontally="true"
+      android:singleLine="true"
+      android:focusable="true"
+      android:focusableInTouchMode="true"/>
 
     <TextView
       android:text="@{election.electionDay.toString()}"

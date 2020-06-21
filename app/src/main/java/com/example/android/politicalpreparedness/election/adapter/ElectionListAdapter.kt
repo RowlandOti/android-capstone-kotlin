@@ -37,6 +37,7 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
             RecyclerView.ViewHolder(binding.root) {
         fun bind(election: Election) {
             binding.election = election
+            binding.electionName.isSelected = true
             binding.executePendingBindings()
         }
     }
