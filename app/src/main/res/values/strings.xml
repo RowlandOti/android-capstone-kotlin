@@ -19,5 +19,6 @@
   <string name="ballot_information">Ballot Information</string>
   <string name="upcoming_elections">Upcoming Elections</string>
   <string name="state_correspondence">State Correspondence</string>
+  <string name="saved_elections">Saved Elections</string>
 
 </resources>

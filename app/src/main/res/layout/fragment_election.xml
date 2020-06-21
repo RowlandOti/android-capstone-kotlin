@@ -6,6 +6,7 @@
   <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context="com.example.android.politicalpreparedness.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,54 +18,60 @@
         android:id="@+id/upcoming_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/upcoming_elections"
-        android:textSize="18sp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:text="@string/upcoming_elections"
+        android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/rvUpcomingElection"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUpcomingElection"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/rvSavedElection"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/saved_header"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upcoming_header"
-        app:spanCount="4" />
+        tools:itemCount="10" />
 
 
       <TextView
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:id="@+id/saved_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/upcoming_elections"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/saved_elections"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/rvSavedElection"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rvUpcomingElection" />
 
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSavedElection"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saved_header"
-        app:spanCount="10" />
+        tools:itemCount="10" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>

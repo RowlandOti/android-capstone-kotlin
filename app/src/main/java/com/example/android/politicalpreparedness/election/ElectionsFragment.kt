@@ -49,7 +49,10 @@ class ElectionsFragment : Fragment() {
                     .navigate(ElectionsFragmentDirections.toVoterInfo(it.id, it.division))
         })
 
+
+        binding.rvUpcomingElection.setHasFixedSize(false)
         binding.rvUpcomingElection.adapter = upcomingElectionListAdapter
+        binding.rvSavedElection.setHasFixedSize(false)
         binding.rvSavedElection.adapter = savedElectionListAdapter
 
         viewModel.getUpcomingElections().observe(viewLifecycleOwner, Observer {
