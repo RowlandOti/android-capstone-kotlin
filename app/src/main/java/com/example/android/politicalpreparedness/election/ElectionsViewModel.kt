@@ -24,7 +24,7 @@ class ElectionsViewModel(private val repository: ElectionRepository) : ViewModel
     }
 
     fun fetchUpcomingElections() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.IO) {
                 val elections = repository.fetchUpcomingElections()
                 upcomingElections.postValue(elections)
@@ -33,7 +33,7 @@ class ElectionsViewModel(private val repository: ElectionRepository) : ViewModel
     }
 
     fun loadSavedElections() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.IO) {
                 val elections = repository.getSavedElections()
                 savedElections.postValue(elections)

@@ -65,7 +65,7 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
 
     fun followElection() {
         voterInfo.value?.election?.let {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 val id = repository.saveElection(it)
                 if (id > -1) {
                     electionIsSaved.postValue(true)
@@ -76,7 +76,7 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
 
     fun unFollowElection() {
         voterInfo.value?.election?.let {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 val id =repository.deleteElection(it)
                 if (id > 0) {
                     electionIsSaved.postValue(false)
@@ -86,7 +86,7 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
     }
 
     private fun checkIsElectionSaved(id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val isSaved = repository.savedElectionExists(id)
             electionIsSaved.postValue(isSaved)
         }
