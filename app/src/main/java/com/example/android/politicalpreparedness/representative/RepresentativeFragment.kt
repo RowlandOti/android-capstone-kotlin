@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 
-// Concepts and code borrowed from my own LocationReminder prject at: https://github.com/RowlandOti/LocationReminder
+// Concepts and code borrowed from my own LocationReminder project at: https://github.com/RowlandOti/LocationReminder
 class RepresentativeFragment : Fragment() {
 
     companion object {
@@ -48,7 +48,6 @@ class RepresentativeFragment : Fragment() {
     private lateinit var binding: FragmentRepresentativeBinding
     private lateinit var representativeListAdapter: RepresentativeListAdapter
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
-    //private lateinit var viewModel: RepresentativeViewModel
     private val viewModel by viewModels<RepresentativeViewModel>()
 
     override fun onCreateView(
