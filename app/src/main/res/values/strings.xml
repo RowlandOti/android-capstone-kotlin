@@ -21,5 +21,8 @@
   <string name="upcoming_elections">Upcoming Elections</string>
   <string name="state_correspondence">State Correspondence</string>
   <string name="saved_elections">Saved Elections</string>
+  <string name="representatives">Representatives</string>
+  <string name="elections">Elections</string>
+  <string name="voter_information">Voter Information</string>
 
 </resources>

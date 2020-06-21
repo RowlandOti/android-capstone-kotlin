@@ -9,7 +9,7 @@
   <fragment
     android:id="@+id/launchFragment"
     android:name="com.example.android.politicalpreparedness.launch.LaunchFragment"
-    android:label="fragment_launch"
+    android:label="@string/app_name"
     tools:layout="@layout/fragment_launch">
 
     <action
@@ -25,13 +25,13 @@
   <fragment
     android:id="@+id/representativeFragment"
     android:name="com.example.android.politicalpreparedness.representative.RepresentativeFragment"
-    android:label="fragment_representative"
+    android:label="@string/representatives"
     tools:layout="@layout/fragment_representative" />
 
   <fragment
     android:id="@+id/electionsFragment"
     android:name="com.example.android.politicalpreparedness.election.ElectionsFragment"
-    android:label="fragment_elections"
+    android:label="@string/elections"
     tools:layout="@layout/fragment_election">
 
     <action
@@ -42,7 +42,7 @@
   <fragment
     android:id="@+id/voterInfoFragment"
     android:name="com.example.android.politicalpreparedness.election.VoterInfoFragment"
-    android:label="fragment_voter_info"
+    android:label="@string/voter_information"
     tools:layout="@layout/fragment_voter_info">
     <argument
       android:name="arg_election_id"
