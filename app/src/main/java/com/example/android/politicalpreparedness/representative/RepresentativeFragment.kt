@@ -83,6 +83,10 @@ class RepresentativeFragment : Fragment() {
             }
         })
 
+        viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer {
+            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+        })
+
         binding.buttonSearch.setOnClickListener {
             hideKeyboard()
             val address = Address(

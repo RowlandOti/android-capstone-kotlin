@@ -1,9 +1,12 @@
 package com.example.android.politicalpreparedness.election
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
@@ -15,6 +18,12 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
 
     private val voterInfo = MutableLiveData<VoterInfoResponse>()
     private val electionIsSaved = MutableLiveData<Boolean>()
+
+    private val errorMessage = MutableLiveData<Int>()
+
+    fun getErrorMessage(): LiveData<Int> {
+        return errorMessage
+    }
 
     fun getVoterInfo(): LiveData<VoterInfoResponse> {
         return voterInfo
@@ -57,8 +66,13 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
     private fun fetchVoterInfo(electionId: Int, address: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val voterInfoResponse = repository.fetchVoterInfo(address, electionId)
-                voterInfo.postValue(voterInfoResponse)
+               try {
+                    val voterInfoResponse = repository.fetchVoterInfo(address, electionId)
+                    voterInfo.postValue(voterInfoResponse)
+                } catch (e: Exception) {
+                   errorMessage.postValue(R.string.msg_network_error)
+                   Log.e(VoterInfoViewModel::class.java.simpleName, e.toString())
+                }
             }
         }
     }

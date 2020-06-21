@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.android.politicalpreparedness.PoliticalApp
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
 
@@ -55,6 +56,9 @@ class VoterInfoFragment : Fragment() {
             setIntent(it)
         })
 
+        viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer {
+            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun setIntent(url: String) {
@@ -65,7 +69,7 @@ class VoterInfoFragment : Fragment() {
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(
                     context,
-                    "No app found that could open the link. Please install browser",
+                    getString(R.string.no_browser_app),
                     Toast.LENGTH_SHORT
             ).show()
         }

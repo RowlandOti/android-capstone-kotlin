@@ -24,5 +24,7 @@
   <string name="representatives">Representatives</string>
   <string name="elections">Elections</string>
   <string name="voter_information">Voter Information</string>
+  <string name="msg_network_error">An error occurred while fetching the data. Please check connection and try again</string>
+  <string name="no_browser_app">No app found that could open the link. Please install browser</string>
 
 </resources>
