@@ -61,7 +61,17 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
 
     fun followElection() {
         voterInfo.value?.election?.let {
-            repository.saveElection(it)
+            viewModelScope.launch {
+                repository.saveElection(it)
+            }
+        }
+    }
+
+    fun unFollowElection() {
+        voterInfo.value?.election?.let {
+            viewModelScope.launch {
+                repository.deleteElection(it)
+            }
         }
     }
 

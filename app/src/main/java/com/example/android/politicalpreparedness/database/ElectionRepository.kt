@@ -37,7 +37,11 @@ class ElectionRepository(
         } else null
     }
 
-    fun saveElection(election :Election) {
+    suspend fun saveElection(election :Election) {
         electionDao.insert(election)
+    }
+
+    suspend fun deleteElection(election :Election) {
+        electionDao.delete(election)
     }
 }

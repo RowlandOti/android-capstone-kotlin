@@ -6,9 +6,8 @@ import com.example.android.politicalpreparedness.network.models.Election
 @Dao
 interface ElectionDao {
 
-    //TODO: Add insert query
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg election: Election)
+    suspend fun insert(vararg election: Election)
 
     //TODO: Add select all election query
     @Query("SELECT * FROM election_table ORDER BY id DESC")
@@ -23,5 +22,6 @@ interface ElectionDao {
     suspend fun deleteAll()
 
     //TODO: Add clear query
-
+    @Delete
+    suspend fun delete(election: Election)
 }
