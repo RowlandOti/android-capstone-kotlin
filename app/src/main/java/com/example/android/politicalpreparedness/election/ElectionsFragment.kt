@@ -57,7 +57,7 @@ class ElectionsFragment : Fragment() {
         })
 
         viewModel.getSavedElections().observe(viewLifecycleOwner, Observer {
-            upcomingElectionListAdapter.submitList(it)
+            savedElectionListAdapter.submitList(it)
         })
     }
 }
