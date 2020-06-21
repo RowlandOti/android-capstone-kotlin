@@ -37,11 +37,16 @@ class ElectionRepository(
         } else null
     }
 
-    suspend fun saveElection(election :Election) {
-        electionDao.insert(election)
+    suspend fun savedElectionExists(id: Int) : Boolean {
+        val election = electionDao.getById(id)
+        return election != null
     }
 
-    suspend fun deleteElection(election :Election) {
-        electionDao.delete(election)
+    suspend fun saveElection(election :Election) : Long {
+        return electionDao.insert(election)
+    }
+
+    suspend fun deleteElection(election :Election) : Int {
+        return electionDao.delete(election)
     }
 }

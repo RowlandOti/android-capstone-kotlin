@@ -14,6 +14,7 @@
   <string name="my_representative">My Representative</string>
   <string name="empty_try_again_later">No items could be found at this time. Please try again later.</string>
   <string name="follow_election">Follow Election</string>
+  <string name="unfollow_election">Unfollow Election</string>
   <string name="election_information">Election Information</string>
   <string name="voting_locations">Voting Locations</string>
   <string name="ballot_information">Ballot Information</string>

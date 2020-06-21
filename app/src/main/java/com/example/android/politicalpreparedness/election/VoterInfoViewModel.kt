@@ -13,10 +13,9 @@ import kotlinx.coroutines.withContext
 
 class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel() {
 
-    //TODO: Add live data to hold voter info
     private val voterInfo = MutableLiveData<VoterInfoResponse>()
+    private val electionIsSaved = MutableLiveData<Boolean>()
 
-    //TODO: Add var and methods to populate voter info
     fun getVoterInfo(): LiveData<VoterInfoResponse> {
         return voterInfo
     }
@@ -42,11 +41,16 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
         loadBallotInformation.postValue(url)
     }
 
+    fun getIsElectionSaved(): LiveData<Boolean> {
+        return electionIsSaved
+    }
+
     fun setDataFromArgs(electionId: Int, division: Division) {
         val electionIdDivisionSet = HashMap<Int, Division>()
         electionIdDivisionSet.put(electionId, division)
         electionIdAndDivisionSet.postValue(electionIdDivisionSet)
 
+        checkIsElectionSaved(electionId)
         fetchVoterInfo(electionId, division.state)
     }
 
@@ -62,7 +66,10 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
     fun followElection() {
         voterInfo.value?.election?.let {
             viewModelScope.launch {
-                repository.saveElection(it)
+                val id = repository.saveElection(it)
+                if (id > -1) {
+                    electionIsSaved.postValue(true)
+                }
             }
         }
     }
@@ -70,16 +77,18 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
     fun unFollowElection() {
         voterInfo.value?.election?.let {
             viewModelScope.launch {
-                repository.deleteElection(it)
+                val id =repository.deleteElection(it)
+                if (id > 0) {
+                    electionIsSaved.postValue(false)
+                }
             }
         }
     }
 
-    //TODO: Add var and methods to save and remove elections to local database
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
-
-    /**
-     * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
-     */
-
+    private fun checkIsElectionSaved(id: Int) {
+        viewModelScope.launch {
+            val isSaved = repository.savedElectionExists(id)
+            electionIsSaved.postValue(isSaved)
+        }
+    }
 }
