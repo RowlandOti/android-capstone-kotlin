@@ -1,15 +1,18 @@
 package com.example.android.politicalpreparedness.election
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.android.politicalpreparedness.PoliticalApp
 import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
-import com.example.android.politicalpreparedness.network.models.Division
 
 class VoterInfoFragment : Fragment() {
 
@@ -35,13 +38,13 @@ class VoterInfoFragment : Fragment() {
 
         arguments?.let {
             val electionId = VoterInfoFragmentArgs.fromBundle(it).argElectionId
-            val division= VoterInfoFragmentArgs.fromBundle(it).argDivision
+            val division = VoterInfoFragmentArgs.fromBundle(it).argDivision
 
             viewModel.setDataFromArgs(electionId, division)
         }
 
         viewModel.getVoterInfo().observe(viewLifecycleOwner, Observer {
-
+            binding.voterResponse = it
         })
 
         //TODO: Populate voter info -- hide views without provided data.
@@ -50,17 +53,27 @@ class VoterInfoFragment : Fragment() {
          */
 
         viewModel.getLoadVotingLocation().observe(viewLifecycleOwner, Observer {
-
+            setIntent(it)
         })
 
         viewModel.getLoadBallotInformation().observe(viewLifecycleOwner, Observer {
-
+            setIntent(it)
         })
 
         //TODO: Handle save button UI state
-        //TODO: cont'd Handle save button clicks
     }
 
-    //TODO: Create method to load URL intents
-
+    private fun setIntent(url: String) {
+        try {
+            val uri = Uri.parse(url)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            context?.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(
+                    context,
+                    "No app found that could open the link. Please install browser",
+                    Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 }

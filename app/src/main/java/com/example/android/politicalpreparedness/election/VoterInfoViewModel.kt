@@ -23,23 +23,23 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
 
     private val electionIdAndDivisionSet = MutableLiveData<HashMap<Int, Division>>()
 
-    private val loadVotingLocations = SingleLiveEvent<Boolean>()
-    private val loadBallotInformation = SingleLiveEvent<Boolean>()
+    private val loadVotingLocations = SingleLiveEvent<String>()
+    private val loadBallotInformation = SingleLiveEvent<String>()
 
-    fun getLoadVotingLocation(): LiveData<Boolean> {
+    fun getLoadVotingLocation(): LiveData<String> {
         return loadVotingLocations
     }
 
-    fun getLoadBallotInformation(): LiveData<Boolean> {
+    fun getLoadBallotInformation(): LiveData<String> {
         return loadBallotInformation
     }
 
-    fun votingLocationsClick() {
-        loadVotingLocations.postValue(true)
+    fun votingLocationsClick(url :String) {
+        loadVotingLocations.postValue(url)
     }
 
-    fun ballotInfoClick() {
-        loadBallotInformation.postValue(true)
+    fun ballotInfoClick(url :String) {
+        loadBallotInformation.postValue(url)
     }
 
     fun setDataFromArgs(electionId: Int, division: Division) {

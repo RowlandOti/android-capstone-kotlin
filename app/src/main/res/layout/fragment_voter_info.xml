@@ -50,19 +50,19 @@
       app:layout_constraintTop_toBottomOf="@id/election_date" />
 
     <TextView
-      android:onClick="@{()->viewModel.votingLocationsClick()}"
       android:id="@+id/state_locations"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:onClick="@{()->viewModel.votingLocationsClick(voterResponse.state.get(0).electionAdministrationBody.votingLocationFinderUrl)}"
       android:text="@string/voting_locations"
       app:layout_constraintStart_toStartOf="@id/election_date"
       app:layout_constraintTop_toBottomOf="@id/state_header" />
 
     <TextView
-      android:onClick="@{()->viewModel.ballotInfoClick()}"
       android:id="@+id/state_ballot"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:onClick="@{()->viewModel.ballotInfoClick(voterResponse.state.get(0).electionAdministrationBody.ballotInfoUrl)}"
       android:text="@string/ballot_information"
       app:layout_constraintStart_toStartOf="@id/election_date"
       app:layout_constraintTop_toBottomOf="@id/state_locations" />
@@ -84,14 +84,14 @@
       app:layout_constraintStart_toStartOf="@id/election_date"
       app:layout_constraintTop_toBottomOf="@id/state_ballot" />
 
-    <!-- TODO: Add data binding -->
     <TextView
       android:id="@+id/address"
-      tools:text="Califonia"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:text="@{voterResponse.state.get(0).electionAdministrationBody.correspondenceAddress.toFormattedString()}"
       app:layout_constraintStart_toStartOf="@id/election_date"
-      app:layout_constraintTop_toBottomOf="@id/state_correspondence_header" />
+      app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
+      tools:text="Calirfonia" />
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/button_follow"
