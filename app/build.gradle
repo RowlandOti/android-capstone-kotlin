@@ -5,6 +5,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'androidx.navigation.safeargs'
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     compileSdkVersion 29
 
@@ -19,6 +22,8 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "API_KEY", localProperties["API_KEY"]
     }
     buildTypes {
         release {

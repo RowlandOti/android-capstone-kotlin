@@ -1,5 +1,7 @@
 package com.example.android.politicalpreparedness.network
 
+import com.example.android.politicalpreparedness.BuildConfig
+import com.example.android.politicalpreparedness.network.CivicsHttpClient.Companion.API_KEY
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -7,7 +9,7 @@ class CivicsHttpClient: OkHttpClient() {
 
     companion object {
 
-        const val API_KEY = "AIzaSyBccycgnfIq641MVr93Pa2VsQY8seit31Y"
+        var API_KEY = BuildConfig.API_KEY
 
         fun getClient(): OkHttpClient {
             val interceptor = HttpLoggingInterceptor()
