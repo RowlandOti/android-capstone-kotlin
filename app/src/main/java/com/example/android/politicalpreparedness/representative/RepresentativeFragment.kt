@@ -41,6 +41,7 @@ class RepresentativeFragment : Fragment() {
         val TAG = RepresentativeFragment::class.java.simpleName
         private const val REQUEST_CODE_BACKGROUND = 102
         private const val REQUEST_TURN_DEVICE_LOCATION_ON = 324
+        private const val MOTION_PROGRESS = "motion_progress"
     }
 
     private lateinit var binding: FragmentRepresentativeBinding
@@ -55,6 +56,11 @@ class RepresentativeFragment : Fragment() {
     ): View? {
         binding = FragmentRepresentativeBinding.inflate(inflater)
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putFloat(MOTION_PROGRESS, binding.motionLayout.progress)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,7 +78,12 @@ class RepresentativeFragment : Fragment() {
 
         viewModel.getRepresentatives().observe(viewLifecycleOwner, Observer {
             representativeListAdapter.submitList(it)
+
+            savedInstanceState?.getFloat(MOTION_PROGRESS, 0f)?.let {
+                binding.motionLayout.progress = it
+            }
         })
+
 
         viewModel.getAddress().observe(viewLifecycleOwner, Observer {
             binding.address = it
@@ -92,7 +103,6 @@ class RepresentativeFragment : Fragment() {
                     binding.state.selectedItem.toString(),
                     binding.zip.text.toString()
             )
-            //binding.address = address
             viewModel.setAddress(address)
         }
 

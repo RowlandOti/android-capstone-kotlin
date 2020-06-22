@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:motion="http://schemas.android.com/tools"
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
@@ -155,21 +154,9 @@
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/representative_title" />
-
-      <TextView
-        android:id="@+id/list_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="@string/empty_try_again_later"
-        android:textAlignment="center"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/representative_title"
-        motion:visibilityMode="ignore" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
   </androidx.core.widget.NestedScrollView>
