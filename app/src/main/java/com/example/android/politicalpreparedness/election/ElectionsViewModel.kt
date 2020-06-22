@@ -34,7 +34,11 @@ class ElectionsViewModel(private val repository: ElectionRepository) : ViewModel
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val elections = repository.fetchUpcomingElections()
-                upcomingElections.postValue(elections)
+                if (!elections.isNullOrEmpty()) {
+                    upcomingElections.postValue(elections)
+                } else{
+                    errorMessage.postValue(R.string.no_content)
+                }
             } catch (e: Exception) {
                 errorMessage.postValue(R.string.msg_network_error)
                 Log.e(ElectionsViewModel::class.java.simpleName, e.toString())

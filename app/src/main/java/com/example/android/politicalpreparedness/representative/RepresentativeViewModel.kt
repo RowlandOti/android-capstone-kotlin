@@ -52,7 +52,7 @@ class RepresentativeViewModel : ViewModel() {
                         })
                     }
                 } else {
-                    errorMessage.postValue(R.string.msg_network_error)
+                    errorMessage.postValue(R.string.no_content)
                 }
             } catch (e: Exception) {
                 errorMessage.postValue(R.string.msg_network_error)

@@ -68,7 +68,11 @@ class VoterInfoViewModel(private val repository: ElectionRepository) : ViewModel
             withContext(Dispatchers.IO) {
                try {
                     val voterInfoResponse = repository.fetchVoterInfo(address, electionId)
-                    voterInfo.postValue(voterInfoResponse)
+                    if (voterInfoResponse != null) {
+                        voterInfo.postValue(voterInfoResponse)
+                    } else {
+                        errorMessage.postValue(R.string.no_content)
+                    }
                 } catch (e: Exception) {
                    errorMessage.postValue(R.string.msg_network_error)
                    Log.e(VoterInfoViewModel::class.java.simpleName, e.toString())
