@@ -10,7 +10,6 @@ import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.network.models.Election
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ElectionsViewModel(private val repository: ElectionRepository) : ViewModel() {
 
@@ -33,28 +32,21 @@ class ElectionsViewModel(private val repository: ElectionRepository) : ViewModel
 
     fun fetchUpcomingElections() {
         viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.IO) {
-                try {
-                    val elections = repository.fetchUpcomingElections()
-                    upcomingElections.postValue(elections)
-                } catch (e: Exception) {
-                    errorMessage.postValue(R.string.msg_network_error)
-                    Log.e(ElectionsViewModel::class.java.simpleName, e.toString())
-                }
+            try {
+                val elections = repository.fetchUpcomingElections()
+                upcomingElections.postValue(elections)
+            } catch (e: Exception) {
+                errorMessage.postValue(R.string.msg_network_error)
+                Log.e(ElectionsViewModel::class.java.simpleName, e.toString())
             }
         }
     }
 
     fun loadSavedElections() {
         viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.IO) {
-                val elections = repository.getSavedElections()
-                savedElections.postValue(elections)
-            }
+            val elections = repository.getSavedElections()
+            savedElections.postValue(elections)
         }
 
     }
-
-    //TODO: Create functions to navigate to saved or upcoming election voter info
-
 }

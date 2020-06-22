@@ -51,9 +51,7 @@ class ElectionsFragment : Fragment() {
         })
 
 
-        binding.rvUpcomingElection.setHasFixedSize(false)
         binding.rvUpcomingElection.adapter = upcomingElectionListAdapter
-        binding.rvSavedElection.setHasFixedSize(false)
         binding.rvSavedElection.adapter = savedElectionListAdapter
 
         viewModel.getUpcomingElections().observe(viewLifecycleOwner, Observer {

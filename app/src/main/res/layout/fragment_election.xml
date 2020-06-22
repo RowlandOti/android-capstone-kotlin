@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:id="@+id/nc_scroll"
     tools:context="com.example.android.politicalpreparedness.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +62,7 @@
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSavedElection"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
