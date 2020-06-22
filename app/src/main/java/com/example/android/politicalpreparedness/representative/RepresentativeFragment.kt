@@ -20,7 +20,6 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
@@ -32,7 +31,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.material.snackbar.Snackbar
 import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -78,9 +76,7 @@ class RepresentativeFragment : Fragment() {
 
         viewModel.getAddress().observe(viewLifecycleOwner, Observer {
             binding.address = it
-            lifecycleScope.launch {
-                viewModel.fetchRepresentatives(it.toFormattedString())
-            }
+            viewModel.fetchRepresentatives(it.toFormattedString())
         })
 
         viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer {
@@ -179,11 +175,11 @@ class RepresentativeFragment : Fragment() {
         return geocoder.getFromLocation(location.latitude, location.longitude, 1)
                 .map { address ->
                     Address(
-                            address.thoroughfare,
-                            address.subThoroughfare,
-                            address.locality,
-                            address.adminArea,
-                            address.postalCode
+                            address?.thoroughfare ?: "",
+                            address?.subThoroughfare ?: "",
+                            address?.locality ?: "",
+                            address?.adminArea ?: "",
+                            address?.postalCode ?: ""
                     )
                 }
                 .first()

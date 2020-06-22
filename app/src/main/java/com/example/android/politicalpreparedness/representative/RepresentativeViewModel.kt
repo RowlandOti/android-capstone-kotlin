@@ -10,6 +10,7 @@ import com.example.android.politicalpreparedness.election.ElectionsViewModel
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.model.Representative
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RepresentativeViewModel : ViewModel() {
@@ -36,7 +37,7 @@ class RepresentativeViewModel : ViewModel() {
     }
 
     fun fetchRepresentatives(address: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = CivicsApi.retrofitService.getRepresentatives(address)
                 if (result.isSuccessful) {
@@ -44,9 +45,14 @@ class RepresentativeViewModel : ViewModel() {
                         val offices = it.offices
                         val officials = it.officials
 
-                        representatives.value =
-                                offices.flatMap { office -> office.getRepresentatives(officials) }
+                        representatives.postValue(offices.flatMap { office ->
+                            office.getRepresentatives(
+                                    officials
+                            )
+                        })
                     }
+                } else {
+                    errorMessage.postValue(R.string.msg_network_error)
                 }
             } catch (e: Exception) {
                 errorMessage.postValue(R.string.msg_network_error)

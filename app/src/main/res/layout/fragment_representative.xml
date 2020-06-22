@@ -10,161 +10,167 @@
       type="com.example.android.politicalpreparedness.network.models.Address" />
   </data>
 
-  <androidx.constraintlayout.motion.widget.MotionLayout
-    android:id="@+id/motionLayout"
+  <androidx.core.widget.NestedScrollView
+    android:id="@+id/nc_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    app:layoutDescription="@xml/scene_representative"
-    tools:showPaths="true">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/cntForm"
+    android:fillViewport="true">
+    <androidx.constraintlayout.motion.widget.MotionLayout
+      android:id="@+id/motionLayout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent">
+      android:layout_height="match_parent"
+      android:padding="8dp"
+      app:layoutDescription="@xml/scene_representative"
+      tools:showPaths="true">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cntForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+          android:id="@+id/search_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/representative_search_form"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+          android:id="@+id/address_line_1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:autofillHints=""
+          android:hint="@string/hint_address_line_1"
+          android:inputType="textPostalAddress"
+          android:text="@{address.line1}"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/search_title" />
+
+        <EditText
+          android:id="@+id/address_line_2"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:autofillHints=""
+          android:hint="@string/hint_address_line_2"
+          android:inputType="textPostalAddress"
+          android:text="@{address.line2}"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/address_line_1" />
+
+        <EditText
+          android:id="@+id/city"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:autofillHints=""
+          android:hint="@string/hint_city"
+          android:inputType="textPostalAddress"
+          android:text="@{address.city}"
+          app:layout_constraintEnd_toStartOf="@id/state"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/address_line_2" />
+
+        <Spinner
+          android:id="@+id/state"
+          stateValue="@{address.state}"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:autofillHints=""
+          android:drawSelectorOnTop="true"
+          android:entries="@array/states"
+          android:inputType="textPostalAddress"
+          app:layout_constraintBottom_toBottomOf="@id/city"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/city"
+          app:layout_constraintTop_toTopOf="@id/city" />
+
+        <EditText
+          android:id="@+id/zip"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:autofillHints=""
+          android:hint="@string/hint_zip"
+          android:inputType="number"
+          android:maxLength="5"
+          android:text="@{address.zip}"
+          app:layout_constraintEnd_toEndOf="@id/city"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/city" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/button_search"
+          style="@style/Widget.MaterialComponents.Button.TextButton"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/wide_btn_margin_start_end"
+          android:layout_marginTop="@dimen/wide_btn_margin_top_bottom"
+          android:layout_marginEnd="@dimen/wide_btn_margin_start_end"
+          android:layout_marginBottom="@dimen/wide_btn_margin_top_bottom"
+          android:backgroundTint="@color/colorPrimary"
+          android:text="@string/find_my_representatives"
+          android:textAllCaps="true"
+          android:textColor="@color/white"
+          android:textSize="@dimen/wide_btn_txt_size"
+          app:layout_constraintTop_toBottomOf="@id/zip" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/button_location"
+          style="@style/Widget.MaterialComponents.Button.TextButton"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/wide_btn_margin_start_end"
+          android:layout_marginTop="@dimen/wide_btn_margin_top_bottom"
+          android:layout_marginEnd="@dimen/wide_btn_margin_start_end"
+          android:layout_marginBottom="@dimen/wide_btn_margin_top_bottom"
+          android:backgroundTint="@color/colorPrimary"
+          android:text="@string/use_my_location"
+          android:textAllCaps="true"
+          android:textColor="@color/white"
+          android:textSize="@dimen/wide_btn_txt_size"
+          app:layout_constraintTop_toBottomOf="@id/button_search" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
       <TextView
-        android:id="@+id/search_title"
+        android:id="@+id/representative_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/representative_search_form"
+        android:layout_marginTop="16dp"
+        android:text="@string/my_representative"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/cntForm" />
 
-      <EditText
-        android:id="@+id/address_line_1"
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/representative_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:hint="@string/hint_address_line_1"
-        android:inputType="textPostalAddress"
-        android:text="@{address.line1}"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_title" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/representative_title" />
 
-      <EditText
-        android:id="@+id/address_line_2"
+      <TextView
+        android:id="@+id/list_placeholder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:autofillHints=""
-        android:hint="@string/hint_address_line_2"
-        android:inputType="textPostalAddress"
-        android:text="@{address.line2}"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/address_line_1" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/empty_try_again_later"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/representative_title"
+        motion:visibilityMode="ignore" />
 
-      <EditText
-        android:id="@+id/city"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:hint="@string/hint_city"
-        android:inputType="textPostalAddress"
-        android:text="@{address.city}"
-        app:layout_constraintEnd_toStartOf="@id/state"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/address_line_2" />
-
-      <Spinner
-        android:id="@+id/state"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:autofillHints=""
-        android:drawSelectorOnTop="true"
-        android:entries="@array/states"
-        android:inputType="textPostalAddress"
-        stateValue="@{address.state}"
-        app:layout_constraintBottom_toBottomOf="@id/city"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/city"
-        app:layout_constraintTop_toTopOf="@id/city" />
-
-      <EditText
-        android:id="@+id/zip"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:hint="@string/hint_zip"
-        android:inputType="number"
-        android:maxLength="5"
-        android:text="@{address.zip}"
-        app:layout_constraintEnd_toEndOf="@id/city"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/city" />
-
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_search"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/wide_btn_margin_start_end"
-        android:layout_marginTop="@dimen/wide_btn_margin_top_bottom"
-        android:layout_marginEnd="@dimen/wide_btn_margin_start_end"
-        android:layout_marginBottom="@dimen/wide_btn_margin_top_bottom"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/find_my_representatives"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="@dimen/wide_btn_txt_size"
-        app:layout_constraintTop_toBottomOf="@id/zip" />
-
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_location"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/wide_btn_margin_start_end"
-        android:layout_marginTop="@dimen/wide_btn_margin_top_bottom"
-        android:layout_marginEnd="@dimen/wide_btn_margin_start_end"
-        android:layout_marginBottom="@dimen/wide_btn_margin_top_bottom"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/use_my_location"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="@dimen/wide_btn_txt_size"
-        app:layout_constraintTop_toBottomOf="@id/button_search" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-      android:id="@+id/representative_title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:text="@string/my_representative"
-      android:textSize="18sp"
-      android:textStyle="bold"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/cntForm" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/representative_recyclerview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:orientation="vertical"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      app:layout_constraintTop_toBottomOf="@id/representative_title" />
-
-    <TextView
-      android:id="@+id/list_placeholder"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:gravity="center"
-      android:text="@string/empty_try_again_later"
-      android:textAlignment="center"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/representative_title"
-      motion:visibilityMode="ignore" />
-
-  </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+  </androidx.core.widget.NestedScrollView>
 </layout>
